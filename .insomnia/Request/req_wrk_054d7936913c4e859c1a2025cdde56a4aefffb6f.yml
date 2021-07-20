@@ -1,0 +1,24 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4aefffb6f
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894126
+created: 1626795894126
+url: "{{ base_url }}/monitoring/notifications/recipients"
+name: /monitoring/notifications/recipients
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894126
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

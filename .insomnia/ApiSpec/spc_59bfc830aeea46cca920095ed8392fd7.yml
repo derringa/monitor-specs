@@ -1,0 +1,5147 @@
+_id: spc_59bfc830aeea46cca920095ed8392fd7
+type: ApiSpec
+parentId: wrk_054d7936913c4e859c1a2025cdde56a4
+modified: 1626795896222
+created: 1626795452182
+fileName: Monitor API Specs
+contents: >
+  openapi: 3.0.0
+
+  info:
+    title: ArcGIS Monitor
+    version: '10.9'
+    description: We are watching you
+  paths:
+    # ADMIN
+    '/admin':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin
+    '/admin/logs':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin
+    '/admin/logs/clear':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+        tags:
+          - Admin
+    '/admin/logs/query':
+      post:
+        requestBody:
+          description: Query for log data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/QueryResponse'
+        tags:
+          - Admin
+    '/admin/logs/update':
+      post:
+        requestBody:
+          description: Update existing log data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  level:
+                    type: string
+                    enum: [error, warning, info, notice, debug]
+                  retention:
+                    type: integer
+                    minimum: 0.01
+                    maximum: 180
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      type: object
+        tags:
+          - Admin
+    '/admin/monitor':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin
+    '/admin/monitor/register':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    monitor:
+                      $ref: '#/components/schemas/Monitor'
+        tags:
+          - Admin
+    '/admin/monitor/unregister':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    monitor:
+                      $ref: '#/components/schemas/Monitor'
+        tags:
+          - Admin        
+    '/admin/monitor/enable':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    monitor:
+                      $ref: '#/components/schemas/Monitor'
+        tags:
+          - Admin        
+    '/admin/monitor/disable':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    monitor:
+                      $ref: '#/components/schemas/Monitor'
+        tags:
+          - Admin
+    '/admin/security':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin
+    '/admin/security/update':
+      post:
+        requestBody:
+          description: Update security settings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  protocols:
+                    type: string
+                    enum: [HTTP, HTTPS, HTTPS_AND_HTTPS]
+                  hstsenabled:
+                    type: boolean
+                  users:
+                    $ref: '#/components/schemas/UserSecurity'
+                    
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      type: object
+                      properties: {}
+        tags:
+          - Admin        
+    '/admin/security/reset':
+      post:
+        requestBody:
+          description: Reset specified security settings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  protocols:
+                    type: boolean
+                  hstsenabled:
+                    type: boolean
+                  users:
+                    type: object
+                    properties:
+                      tokenexpiration:
+                        type: boolean
+                      passwordpolicy:
+                        type: boolean
+                    
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      type: object
+                      properties: {}
+        tags:
+          - Admin    
+    '/admin/security/agent':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin
+    '/admin/security/agent/add':
+      post:
+        requestBody:
+          description: Add an agent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: boolean
+                    maximum: 255
+                required:
+                  - name
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    serverURL:
+                      type: string
+                    auth:
+                      $ref: '#/components/schemas/Auth'
+                    agent:
+                      $ref: '#/components/schemas/Agent'
+        tags:
+          - Admin           
+    '/admin/security/agent/delete':
+      post:
+        requestBody:
+          description: Delete an agent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    agent:
+                      $ref: '#/components/schemas/Agent'
+        tags:
+          - Admin
+    '/admin/security/agent/generateToken':
+      post:
+        requestBody:
+          description: Agent generate token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    serverURL:
+                      type: string
+                    auth:
+                      $ref: '#/components/schemas/Auth'
+                    agent:
+                      $ref: '#/components/schemas/Agent'
+        tags:
+          - Admin
+    '/admin/security/agents/query':
+      post:
+        requestBody:
+          description: Query for agent data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/QueryResponse'
+        tags:
+          - Admin    
+    '/admin/security/contacts':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin
+    '/admin/security/contacts/add':
+      post:
+        requestBody:
+          description: Add a contact
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                required:
+                  - email
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    contact:
+                      $ref: '#/components/schemas/Contact'
+        tags:
+          - Admin  
+    '/admin/security/contacts/delete':
+      post:
+        requestBody:
+          description: Delete a contact
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: integer
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    contact:
+                      $ref: '#/components/schemas/Contact'
+        tags:
+          - Admin  
+    '/admin/security/contacts/update':
+      post:
+        requestBody:
+          description: Update an existing contact
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    contact:
+                      $ref: '#/components/schemas/Contact'
+        tags:
+          - Admin          
+    '/admin/security/contacts/query':
+      post:
+        requestBody:
+          description: Query for contact data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/QueryResponse'
+        tags:
+          - Admin
+    '/admin/security/ssl':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    properties:
+                      $ref: '#/components/schemas/Ssl'
+        tags:
+          - Admin
+    '/admin/security/ssl/import':
+      post:
+        requestBody:
+          description: Add an agent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cert_password:
+                    type: string
+                  cert_file:
+                    type: string
+                    format: binary
+                required:
+                  - cert_password
+                  - cert_file
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    ssl:
+                      $ref: '#/components/schemas/Ssl'
+        tags:
+          - Admin           
+    '/admin/security/users':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin        
+    '/admin/security/users/add':
+      post:
+        requestBody:
+          description: Add a user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+                  name_first:
+                    type: string
+                  name_last:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                    enum: [admin, manager, viewer]
+                required:
+                  - username
+                  - password
+                  - name_first
+                  - name_last
+                  - email
+                  - role
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    user:
+                      $ref: '#/components/schemas/User'
+        tags:
+          - Admin          
+    '/admin/security/users/delete':
+      post:
+        requestBody:
+          description: Delete a user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    user:
+                      $ref: '#/components/schemas/User'
+        tags:
+          - Admin  
+    '/admin/security/users/forgotPassword':
+      post:
+        requestBody:
+          description: Acquire user password recovery token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    recovery_token:
+                      type: string
+                    recovery_url:
+                      type: string
+        tags:
+          - Admin  
+    '/admin/security/users/query':
+      post:
+        requestBody:
+          description: Query for user data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/QueryResponse'
+        tags:
+          - Admin     
+    '/admin/security/users/update':
+      post:
+        requestBody:
+          description: Update an existing user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name_first:
+                    type: string
+                  name_last:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                    enum: [admin, manager, viewer]
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    user:
+                      $ref: '#/components/schemas/User'
+        tags:
+          - Admin          
+    '/admin/database':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IndexResponse'
+        tags:
+          - Admin
+    '/admin/database/register':
+      post:
+        requestBody:
+          description: Register Monitor database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  client:
+                    type: string
+                    enum: [pg, mssql]
+                  host:
+                    type: string
+                  port:
+                    type: string
+                  database:
+                    type: string
+                  domain:
+                    type: string
+                  username:
+                    type: string
+                  password:
+                    type: string
+                required:
+                  - client
+                  - host
+                  - database
+                  - username
+                  - password
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    database:
+                      $ref: '#/components/schemas/Database'
+                    migrations:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/DatabaseMigration'
+        tags:
+          - Admin          
+    '/admin/database/reset':
+      post:
+        requestBody:
+          description: Reset Monitor database partitions retention policies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  partitionretention:
+                    type: object
+                    properties:
+                      partitionsretention:
+                        type: boolean
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      $ref: '#/components/schemas/Database'
+        tags:
+          - Admin 
+    '/admin/database/status':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      type: object
+                      properties:
+                        connection:
+                          $ref: '#/components/schemas/DatabaseConnection'
+                        permissions:
+                          $ref: '#/components/schemas/DatabasePermissions'
+                        migrations:
+                          $ref: '#/components/schemas/DatabaseMigration'
+                        partitions:
+                          $ref: '#/components/schemas/DatabasePartitionRetention'
+        tags:
+          - Admin         
+    '/admin/database/unregister':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    database:
+                      $ref: '#/components/schemas/Database'
+        tags:
+          - Admin  
+    '/admin/database/update':
+      post:
+        requestBody:
+          description: Update Monitor database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  partitionretention:
+                    type: object
+                    properties:
+                      metric_date:
+                        type: integer
+                        minimum: 2
+                        maximum: 36
+                      metrics_data_statistics:
+                        type: integer
+                        minimum: 0
+                        maximum: 36
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      $ref: '#/components/schemas/Database'
+        tags:
+          - Admin          
+    '/admin/system':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/System'
+        tags:
+          - Admin
+    '/admin/system/restart':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+        tags:
+          - Admin
+    '/admin/system/update':
+      post:
+        requestBody:
+          description: Update an existing user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webcontexturl:
+                    type: string
+                  clustersize:
+                    type: integer
+                    minimum: 0.01
+                  connectiontimeout:
+                    type: integer
+                    minimum: 10
+                  maxrecordcount:
+                    type: integer
+                    minimum: 1000
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    propertires:
+                      $ref: '#/components/schemas/System'
+        tags:
+          - Admin          
+    '/admin/system/licenses':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    properties:
+                      $ref: '#/components/schemas/Licensing'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Admin        
+    '/admin/system/licenses/refresh':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    properties:
+                      $ref: '#/components/schemas/Licensing'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Admin             
+    '/admin/system/smtp':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    properties:
+                      $ref: '#/components/schemas/Smtp'
+                    defaults:
+                      $ref: '#/components/schemas/Defaults'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Admin                
+    '/admin/system/smtp/register':
+      post:
+        requestBody:
+          description: Register SMTP server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  host:
+                    type: string
+                  port:
+                    type: string
+                  secure:
+                    type: boolean
+                  sender:
+                    $ref: '#/components/schemas/SmtpSender'
+                  username:
+                    type: string
+                  password:
+                    type: string
+                required:
+                  - host
+                  - port
+                  - secure
+                  - sender.address
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      $ref: '#/components/schemas/Smtp'
+        tags:
+          - Admin                
+    '/admin/system/smtp/unregister':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      $ref: '#/components/schemas/Smtp'
+        tags:
+          - Admin         
+    '/admin/system/smtp/enable':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      $ref: '#/components/schemas/Smtp'
+        tags:
+          - Admin                 
+    '/admin/system/smtp/disable':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    properties:
+                      $ref: '#/components/schemas/Smtp'
+        tags:
+          - Admin                 
+    '/admin/system/smtp/test':
+      post:
+        requestBody:
+          description: Send test email via SMTP server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipient:
+                    type: string
+                required:
+                  - recipient
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+        tags:
+          - Admin                        
+    '/admin/tags':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Admin
+    '/admin/tags/add':
+      post:
+        requestBody:
+          description: Add a tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                required:
+                  - name
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    tag:
+                      $ref: '#/components/schemas/Tag'
+        tags:
+          - Admin                
+    '/admin/tags/delete':
+      post:
+        requestBody:
+          $ref: '#/components/requestBodies/IdList'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+        tags:
+          - Admin          
+    '/admin/tags/update':
+      post:
+        requestBody:
+          description: Update a tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    tag:
+                      $ref: '#/components/schemas/Tag'
+        tags:
+          - Admin         
+    '/admin/tags/query':
+      post:
+        requestBody:
+          description: Query for tag data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/QueryResponse'
+        tags:
+          - Admin        
+    
+    # AGENT      
+    '/agent/identify':
+      post:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    connection_identity:
+                      type: integer
+        tags:
+          - Agent 
+          
+    # AUTH
+    '/auth':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    properties:
+                      type: object
+                      properties:
+                        policy:
+                          $ref: '#/components/schemas/PasswordPolicy'
+                        question:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              attributes:
+                                $ref: '#/components/schemas/Question'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Auth 
+    '/auth/checkPasswordStrength':
+      post:
+        requestBody:
+          description: Check strength of password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  password:
+                    type: string
+                required:
+                  - password
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    valid:
+                      type: boolean
+                    details:
+                      type: array
+                      items:
+                        type: string
+        tags:
+          - Auth  
+    '/auth/forgotPassword':
+      post:
+        requestBody:
+          description: Access to begin password recovery process
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  security_question_answer:
+                    type: string
+                required:
+                  - username
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    details:
+                      type: string
+        tags:
+          - Auth  
+    '/auth/recoverPassword':
+      post:
+        requestBody:
+          description: Recover lost password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rocovery_token:
+                    type: string
+                  password:
+                    type: string
+                  password_confirmation:
+                    type: string                  
+                required:
+                  - rocovery_token
+                  - password
+                  - password_confirmation
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    details:
+                      type: string
+        tags:
+          - Auth  
+    '/auth/token':
+      post:
+        requestBody:
+          description: Get new session token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+                  refresh_token:
+                    type: string     
+                  issue_refresh_token:
+                    type: boolean  
+                  exchange_refresh_token:
+                    type: boolean  
+                required:
+                  - username
+                  - password
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    access_token:
+                      type: string
+                    refresh_token:
+                      type: string
+                    expires_in:
+                      type: integer
+        tags:
+          - Auth  
+    '/auth/verifyEmail':
+      post:
+        requestBody:
+          description: Verify email with persona token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string     
+                required:
+                  - token
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+        tags:
+          - Auth  
+    '/auth/self':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    user:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/User'
+                        question:
+                          $ref: '#/components/schemas/Question'
+                        favorites:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              attributes:
+                                $ref: '#/components/schemas/Favorite'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Auth         
+    '/auth/self/updateProfile':
+      post:
+        requestBody:
+          description: Update user profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  name_first:
+                    type: string
+                  name_last:
+                    type: string
+                  security_question_id:
+                    type: integer
+                  security_question_answer:
+                    type: string
+                  password:
+                    type: string
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    user:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/User'
+                        question:
+                          type: object
+                          properties:
+                            attributes:
+                              $ref: '#/components/schemas/Question'
+        tags:
+          - Auth   
+    '/auth/self/resetPassword':
+      post:
+        requestBody:
+          description: Reset password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  old_password:
+                    type: string
+                  password:
+                    type: string
+                  password_confirmation:
+                    type: string
+                required:
+                  - old_password
+                  - password
+                  - password_confirmation
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    user:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/User'
+        tags:
+          - Auth            
+    '/auth/self/favorites':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    favorites:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Favorite'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Auth
+    '/auth/self/favorites/add':
+      post:
+        requestBody:
+          description: Add entities to favorites
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  ids:
+                    $ref: '#/components/schemas/Ids'
+                  
+                required:
+                  - name
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    favorites:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Favorite'
+                          
+        tags:
+          - Auth                
+    '/auth/self/favorites/delete':
+      post:
+        requestBody:
+          description: Delete entities from favorites
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ids:
+                    $ref: '#/components/schemas/Ids'
+                  
+                required:
+                  - name
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    favorites:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Favorite'
+                          
+        tags:
+          - Auth                
+          
+    # Monitoring
+    '/monitoring':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Monitoring 
+    '/monitoring/alerts':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+        tags:
+          - Monitoring 
+    '/monitoring/alerts/query':
+      post:
+        requestBody:
+          description: Query for alert data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Alert'
+        tags:
+          - Monitoring  
+    '/monitoring/alerts/update':
+      post:
+        requestBody:
+          description: Update alert data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  is_influencing_uptime:
+                    type: boolean
+                  state:
+                    type: string
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    alert:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Alert'
+        tags:
+          - Monitoring  
+    '/monitoring/alerts/comments':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/alerts/comments/add':
+      post:
+        requestBody:
+          description: Add an alert comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  message:
+                    type: string
+                    maximum: 255
+                required:
+                  - id
+                  - message
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    comment:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Comment'
+        tags:
+          - Monitoring        
+    '/monitoring/alerts/comments/delete':
+      post:
+        requestBody:
+          $ref: '#/components/requestBodies/IdList'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    comments:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Comment'
+        tags:
+          - Monitoring 
+    '/monitoring/alerts/comments/query':
+      post:
+        requestBody:
+          description: Query for alert comment data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Alert'
+                    exceededTransferLimit:
+                      type: boolean
+        tags:
+          - Monitoring  
+    '/monitoring/alerts/comments/update':
+      post:
+        requestBody:
+          description: Update an alert comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  message:
+                    type: string
+                    maximum: 255
+                required:
+                  - id
+                  - message
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    comment:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Comment'
+        tags:
+          - Monitoring        
+    '/monitoring/collections':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring
+    '/monitoring/collections/add':
+      post:
+        requestBody:
+          description: Add a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                  description: 
+                    type: string
+                    maximum: 255
+                  is_service_enabled: 
+                    type: boolean
+                required:
+                  - name
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    collection:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring        
+    '/monitoring/collections/delete':
+      post:
+        requestBody:
+          description: Delete a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    collection:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring 
+    '/monitoring/collections/query':
+      post:
+        requestBody:
+          description: Query for collections data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring  
+    '/monitoring/collections/update':
+      post:
+        requestBody:
+          description: Update a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name: 
+                    type: string
+                  description: 
+                    type: string
+                    maximum: 255
+                  is_service_enabled: 
+                    type: boolean
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    collection:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring 
+    '/monitoring/collections/components':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring
+    '/monitoring/collections/components/attach':
+      post:
+        requestBody:
+          description: Attach components to a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  component_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+                  - component_ids
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    collection:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Collection'
+                        components:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Component'
+        tags:
+          - Monitoring 
+    '/monitoring/collections/components/detach':
+      post:
+        requestBody:
+          description: Detach components to a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  component_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+                  - component_ids
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    collection:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Collection'
+                        components:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Component'
+        tags:
+          - Monitoring
+    '/monitoring/collections/incidents':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring
+    '/monitoring/collections/incidents/attach':
+      post:
+        requestBody:
+          description: Attach incidents to a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  incident_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+                  - incident_ids
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    collection:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Collection'
+                        incidents:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Incident'
+        tags:
+          - Monitoring 
+    '/monitoring/collections/incidents/detach':
+      post:
+        requestBody:
+          description: Detach incidents to a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  incident_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+                  - incident_ids
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    collection:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Collection'
+                        incidents:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Incident'
+        tags:
+          - Monitoring 
+    '/monitoring/components':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/components/query':
+      post:
+        requestBody:
+          description: Query for component data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Component'
+        tags:
+          - Monitoring  
+    '/monitoring/components/observe':
+      post:
+        requestBody:
+          description: Observe a component
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  identifier: 
+                    type: string
+                required:
+                  - id
+                  - identifier
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+        tags:
+          - Monitoring        
+    '/monitoring/components/register':
+      post:
+        requestBody:
+          description: Register a component
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  agent_id: 
+                    type: integer
+                  name: 
+                    type: string
+                  type: 
+                    type: string
+                    enum: [host, database, enterprise]
+                  subtype: 
+                    type: string
+                  address_internal: 
+                    type: string
+                  description: 
+                    type: string
+                    maximum: 255
+                  auth:
+                    type: object
+                    properties:
+                      username: 
+                        type: string
+                      password: 
+                        type: string
+                      port: 
+                        type: integer
+                      key: 
+                        type: string
+                required:
+                  - name
+                  - type
+                  - address_internal
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    component:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Component'
+                    discovered:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Component'
+        tags:
+          - Monitoring        
+    '/monitoring/components/unregister':
+      post:
+        requestBody:
+          $ref: '#/components/requestBodies/IdList'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    component:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Component'
+        tags:
+          - Monitoring        
+    '/monitoring/components/update':
+      post:
+        requestBody:
+          description: Update a component
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  name: 
+                    type: string
+                  address_internal: 
+                    type: string
+                  description: 
+                    type: string
+                    maximum: 255
+                  auth:
+                    type: object
+                    properties:
+                      username: 
+                        type: string
+                      password: 
+                        type: string
+                      port: 
+                        type: integer
+                      key: 
+                        type: string
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    component:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Component'
+        tags:
+          - Monitoring        
+    '/monitoring/components/collections':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/components/collections/attach':
+      post:
+        requestBody:
+          description: Attach a list of collections to a component
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  collection_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    component:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Component'
+                        collections:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              attributes:
+                                $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring        
+    '/monitoring/components/collections/detach':
+      post:
+        requestBody:
+          description: Detach a list of collections to a component
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  collection_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    component:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Component'
+                        collections:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              attributes:
+                                $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring 
+    '/monitoring/components/tags':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/components/tags/attach':
+      post:
+        requestBody:
+          description: Attach a list of tags to a component
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    component:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Component'
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              attributes:
+                                $ref: '#/components/schemas/Tag'
+        tags:
+          - Monitoring        
+    '/monitoring/components/tags/detach':
+      post:
+        requestBody:
+          description: Detach a list of tags to a component
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    component:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Component'
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              attributes:
+                                $ref: '#/components/schemas/Tag'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents/add':
+      post:
+        requestBody:
+          description: Add an incident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  start_at: 
+                    type: string
+                  end_at: 
+                    type: integer
+                  name: 
+                    type: string
+                  description: 
+                    type: string
+                  is_monitoring_enabled: 
+                    type: boolean
+                  is_alerting_enabled: 
+                    type: boolean
+                  reminder_hours: 
+                    type: integer
+                required:
+                  - start_at
+                  - end_at
+                  - name
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    incident:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Incident'
+        tags:
+          - Monitoring        
+    '/monitoring/incidents/delete':
+      post:
+        requestBody:
+          description: Delete an incident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    incidnet:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Incident'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents/query':
+      post:
+        requestBody:
+          description: Query for incidents data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Incident'
+        tags:
+          - Monitoring  
+    '/monitoring/incidents/update':
+      post:
+        requestBody:
+          description: Delete an incident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  start_at: 
+                    type: string
+                  end_at: 
+                    type: integer
+                  name: 
+                    type: string
+                  description: 
+                    type: string
+                  is_monitoring_enabled: 
+                    type: boolean
+                  is_alerting_enabled: 
+                    type: boolean
+                  reminder_hours: 
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    incident:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Incident'
+        tags:
+          - Monitoring        
+    '/monitoring/incidents/collections':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents/collections/attach':
+      post:
+        requestBody:
+          description: Attach incidents to a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  collection_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+                  - collection_ids
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    incident:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Incident'
+                        collections:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents/collections/detach':
+      post:
+        requestBody:
+          description: Attach incidents to a collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  collection_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+                  - collection_ids
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    incident:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Incident'
+                        collections:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Collection'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents/comments':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents/comments/add':
+      post:
+        requestBody:
+          description: Add an incident comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  message:
+                    type: string
+                    maximum: 255
+                required:
+                  - id
+                  - message
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    comment:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Comment'
+        tags:
+          - Monitoring        
+    '/monitoring/incidents/comments/delete':
+      post:
+        requestBody:
+          $ref: '#/components/requestBodies/IdList'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    comments:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Comment'
+        tags:
+          - Monitoring 
+    '/monitoring/incidents/comments/query':
+      post:
+        requestBody:
+          description: Query for incident comment data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Incident'
+                    exceededTransferLimit:
+                      type: boolean
+        tags:
+          - Monitoring  
+    '/monitoring/incidents/comments/update':
+      post:
+        requestBody:
+          description: Update an incident comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  message:
+                    type: string
+                    maximum: 255
+                required:
+                  - id
+                  - message
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    comment:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Comment'
+        tags:
+          - Monitoring        
+    '/monitoring/metrics':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/metrics/query':
+      post:
+        requestBody:
+          description: Query for metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Metric'
+        tags:
+          - Monitoring  
+    '/monitoring/metrics/update':
+      post:
+        requestBody:
+          description: Update metric data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                  is_alerting_enabled: 
+                    type: boolean
+                  is_influencing_uptime: 
+                    type: boolean
+                  operator: 
+                    type: string
+                  info_threshold: 
+                    type: number
+                  warning_threshold: 
+                    type: number
+                  critical_threshold: 
+                    type: number
+                  back_intervals: 
+                    type: integer
+                  violation_percent: 
+                    type: integer
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    metric:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Metric'
+        tags:
+          - Monitoring        
+    '/monitoring/metrics/data':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/metrics/data/query':
+      post:
+        requestBody:
+          description: Query for metrics data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/MetricData'
+                    exceededTransferLimit:
+                      type: boolean
+        tags:
+          - Monitoring  
+    '/monitoring/notifications':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    exceededTransferLimit:
+                      type: boolean
+        tags:
+          - Monitoring 
+    '/monitoring/notifications/add':
+      post:
+        requestBody:
+          description: Add a notification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  is_webhooks_enabled:
+                    type: boolean
+                  is_email_enabled:
+                    type: boolean
+                  url:
+                    type: string
+                  email_interval:
+                    type: integer
+                    enum: [0, 1, 5, 15, 60]
+                  collection_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                required:
+                  - name
+                  - is_webhooks_enabled
+                  - is_email_enabled
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notification:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Notification'
+                        events:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Event'
+                        recipients:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Recipient'
+        tags:
+          - Monitoring        
+    '/monitoring/notifications/delete':
+      post:
+        requestBody:
+          $ref: '#/components/requestBodies/IdList'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notifications:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Notification'
+                          events:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Event'
+                          recipients:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Recipient'
+        tags:
+          - Monitoring 
+    '/monitoring/notifications/update':
+      post:
+        requestBody:
+          description: Update a notification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  is_webhooks_enabled:
+                    type: boolean
+                  is_email_enabled:
+                    type: boolean
+                  url:
+                    type: string
+                  email_interval:
+                    type: integer
+                    enum: [0, 1, 5, 15, 60]
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notification:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Notification'
+                        events:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Event'
+                        recipients:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Recipient'
+        tags:
+          - Monitoring        
+    '/monitoring/notifications/query':
+      post:
+        requestBody:
+          description: Query for notifications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Notification'
+        tags:
+          - Monitoring  
+    '/monitoring/notifications/events':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/notifications/events/add':
+      post:
+        requestBody:
+          description: Add events to a notification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  events:
+                    type: object
+                    properties:
+                      resource:
+                        type: string
+                      operation:
+                        type: string
+                      condition:
+                        type: object
+                        properties: {}
+                required:
+                  - id
+                  - events
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notification:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Notification'
+                        events:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Event'
+                        recipients:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Recipient'
+                          
+        tags:
+        - Monitoring        
+    '/monitoring/notifications/events/update':
+      post:
+        requestBody:
+          description: Update existing events to a notification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  events:
+                    type: object
+                    properties:
+                      resource:
+                        type: string
+                      operation:
+                        type: string
+                      condition:
+                        type: object
+                        properties: {}
+                required:
+                  - id
+                  - events
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notification:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Notification'
+                        events:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Event'
+                        recipients:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Recipient'
+                          
+        tags:
+        - Monitoring        
+    '/monitoring/notifications/events/delete':
+      post:
+        requestBody:
+          description: Delete events from a notification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  event_ids:
+                    $ref: '#/components/schemas/Ids'
+                required:
+                  - id
+                  - event_ids
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notification:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Notification'
+                        events:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Event'
+                        recipients:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Recipient'
+                          
+        tags:
+        - Monitoring        
+    '/monitoring/notifications/events/query':
+      post:
+        requestBody:
+          description: Query for notification events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Event'
+        tags:
+          - Monitoring  
+    '/monitoring/notifications/recipients':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/notifications/recipients/query':
+      post:
+        requestBody:
+          description: Query for notification recipients
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Recipient'
+        tags:
+          - Monitoring  
+    '/monitoring/notifications/recipients/add':
+      post:
+        requestBody:
+          description:  Create new contacts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contacts:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                      name:
+                        type: string
+                required:
+                  - contacts
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    recipients:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Recipient'
+        tags:
+        - Monitoring        
+    '/monitoring/notifications/recipients/attach':
+      post:
+        requestBody:
+          description:  Attach recipients to a notification configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  recipients:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        resource:
+                          type: string
+                          enum: [contact, user]
+                required:
+                  - id
+                  - recipients
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notification:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Notification'
+                        events:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Event'
+                        recipients:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Recipient'
+        tags:
+        - Monitoring        
+    '/monitoring/notifications/recipients/detach':
+      post:
+        requestBody:
+          description:  Attach recipients to a notification configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  recipients:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        resource:
+                          type: string
+                          enum: [contact, user]
+                required:
+                  - id
+                  - recipients
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    notification:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Notification'
+                        events:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Event'
+                        recipients:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Recipient'
+        tags:
+        - Monitoring        
+    '/monitoring/observers':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/observers/query':
+      post:
+        requestBody:
+          description: Query for observers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/Observer'
+        tags:
+          - Monitoring  
+    '/monitoring/observers/run':
+      post:
+        requestBody:
+          description: Run an observer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+        tags:
+          - Monitoring        
+    '/monitoring/observers/update':
+      post:
+        requestBody:
+          description: Update an observer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    observer:
+                      $ref: '#/components/schemas/Observer'
+        tags:
+          - Monitoring        
+    '/monitoring/reports':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/reports/add':
+      post:
+        requestBody:
+          description: Add a report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collection_id:
+                    type: integer
+                  registry_id:
+                    type: integer
+                  occurrence:
+                    $ref: '#/components/schemas/ReportOccurence'
+                  config:
+                    $ref: '#/components/schemas/ReportConfig'
+                required:
+                  - collection_id
+                  - registry_id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    report:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Report'
+        tags:
+          - Monitoring        
+    '/monitoring/reports/delete':
+      post:
+        requestBody:
+          description: Delete a report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    report:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/Report'
+        tags:
+          - Monitoring        
+    '/monitoring/reports/run':
+      post:
+        requestBody:
+          description: Run a report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    run:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/ReportRun'
+        tags:
+          - Monitoring  
+    '/monitoring/reports/registry':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/reports/registry/add':
+      post:
+        requestBody:
+          description: Add a report registry
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  query:
+                    type: object
+                    properties: {}
+                  identified:
+                    type: string
+                required:
+                  - query
+                  - identifier
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    reportRegistry:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/ReportRegistry'
+        tags:
+          - Monitoring        
+    '/monitoring/reports/registry/delete':
+      post:
+        requestBody:
+          description: Add a report registry
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    reportRegistry:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/ReportRegistry'
+        tags:
+          - Monitoring        
+    '/monitoring/reports/registry/query':
+      post:
+        requestBody:
+          description: Query for report registries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/ReportRegistry'
+        tags:
+          - Monitoring  
+    '/monitoring/reports/registry/update':
+      post:
+        requestBody:
+          description: Update a report registry
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  query:
+                    type: object
+                    properties: {}
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    reportRegistry:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/ReportRegistry'
+        tags:
+          - Monitoring        
+    '/monitoring/reports/runs':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    resources:
+                      $ref: '#/components/schemas/Resources'
+                    operations:
+                      $ref: '#/components/schemas/Operations'
+                    types:
+                      $ref: '#/components/schemas/Types'
+        tags:
+          - Monitoring 
+    '/monitoring/reports/runs/delete':
+      post:
+        requestBody:
+          description: Delete a run report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                  - id
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    run:
+                      type: object
+                      properties:
+                        attributes:
+                          $ref: '#/components/schemas/ReportRun'
+        tags:
+          - Monitoring  
+    '/monitoring/reports/runs/download':
+      post:
+        requestBody:
+          description: Download a run report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  filetype:
+                    type: string
+                    enum: [JSON, CSV]
+                required:
+                  - id
+                  - filetype
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+        tags:
+          - Monitoring  
+    '/monitoring/reports/runs/query':
+      post:
+        requestBody:
+          description: Query for report runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fields:
+                      $ref: '#/components/schemas/Fields'
+                    relationships:
+                      $ref: '#/components/schemas/Relationships'
+                    features:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          attributes:
+                            $ref: '#/components/schemas/ReportRun'
+        tags:
+          - Monitoring  
+          
+    # Setup
+    '/setup':
+      get:
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ClusterPropertyUtils'
+        tags:
+          - Setup
+    '/setup/createInitialAdmin':
+      post:
+        requestBody:
+          description: Create initial administrator account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+                  password_confirmation:
+                    type: string
+                  email:
+                    type: string
+                  name_frist:
+                    type: string
+                  name_last:
+                    type: string
+                required:
+                  - username
+                  - password
+                  - password_confirmation
+                  - email
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    access_token:
+                      type: string
+                    expires_in:
+                      type: integer
+        tags:
+          - Setup        
+    '/setup/serverlogin':
+      post:
+        requestBody:
+          description: Agent retreive server access token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server_url:
+                    type: string
+                  username:
+                    type: string
+                  password:
+                    type: string
+                required:
+                  - server_url
+                  - username
+                  - password
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    server_token:
+                      type: string
+        tags:
+          - Setup 
+    '/setup/createagent':
+      post:
+        requestBody:
+          description: Agent create itself an account on the server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server_url:
+                    type: string
+                  server_token:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                required:
+                  - server_url
+                  - server_token
+                  - name
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    agent_info:
+                      type: object
+                      properties: {}
+        tags:
+          - Setup 
+
+    
+
+  components:
+    schemas:
+      IndexResponse:
+        type: object
+        properties:
+          properties:
+            type: object
+          resources:
+            type: array
+            items:
+              type: string
+          operations:
+            type: array
+            items:
+              type: string
+      QueryRequest:
+        type: object
+        properties:
+          where:
+            type: string
+          with:
+            type: array
+            items:
+              type: object
+              properties:
+                related:
+                  type: string
+                where:
+                  type: string
+          has:
+            type: array
+            items:
+              type: object
+              properties:
+                related:
+                  type: string
+                where:
+                  type: string
+          resultrecordcount:
+            type: integer
+          returndistinctvalues:
+            type: boolean
+          resultoffset: 
+            type: integer
+      QueryResponse:
+        type: object
+        properties:
+          Fields:
+            $ref: '#/components/schemas/Fields'
+          Relationships:
+            $ref: '#/components/schemas/Relationships'
+          Features:
+            $ref: '#/components/schemas/Features'
+      Monitor:
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+          isRegistered:
+            type: boolean
+          type:
+            type: string
+          address:
+            type: string
+      UserSecurity:
+        type: object
+        properties:
+          tokenExpiration:
+            type: integer
+            minimum: 59
+          passwordpolicy:
+            $ref: '#/components/schemas/PasswordPolicy'
+      Auth:
+        type: object
+        properties: {}
+      Agent:
+        type: object
+        properties: {}
+      Alert:
+        type: object
+        properties:
+          id:
+            type: integer
+          created_at:
+            type: integer
+          updated_at:
+            type: integer
+          opened_at:
+            type: integer
+          closed_at:
+            type: integer
+          metric_id:
+            type: integer
+          observer_id:
+            type: integer
+          component_id:
+            type: integer
+          name:
+            type: string
+          type:
+            type: string
+          state:
+            type: string
+          status:
+            type: integer
+          is_influencing_uptime:
+            type: boolean
+          rules:
+            type: object
+            properties:
+              is_alerting_enabled:
+                type: boolean
+              info_threshold:
+                type: integer
+              warning_threshold:
+                type: integer
+              critical_threshold:
+                type: integer
+              back_intervals:
+                type: integer
+              violation_percent:
+                type: integer
+      ClusterPropertyUtils:
+        type: object
+        properties:
+          mode: 
+            type: string
+          platform: 
+            type: string
+          ip: 
+            type: string
+          fqdn: 
+            type: string
+          webContextUrl: 
+            type: string
+          size: 
+            type: integer
+          httpEnabled: 
+            type: boolean
+          httpsEnabled: 
+            type: boolean
+      Collection:
+        type: object
+        properties:
+          id:
+            type: integer
+          created_at:
+            type: integer
+          updated_at:
+            type: integer
+          type:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          status:
+            type: integer
+          service_name:
+            type: string
+          is_service_enabled:
+            type: boolean
+          expression:
+            type: string
+          service_url:
+            type: string
+      Comment:
+        type: object
+        properties:
+          user_id:
+            type: integer
+          type:
+            type: string
+          message:
+            type: string
+          alert_id:
+            type: integer
+          created_at:
+            type: integer
+          updated_at:
+            type: integer
+          id:
+            type: integer
+      Component:
+        type: object
+        properties:
+          id:
+            type: integer
+          created_at:
+            type: integer
+          updated_at:
+            type: integer
+          agent_id:
+            type: integer
+          name:
+            type: string
+          description:
+            type: string
+          type:
+            type: string
+          subtype:
+            type: string
+          address_internal:
+            type: string
+          address_external:
+            type: string
+          class:
+            type: string
+          state:
+            type: string
+          status:
+            type: integer
+          location:
+            type: string
+          version:
+            type: string
+          system_version:
+            type: string
+          system_status:
+            type: string
+          system_created_at:
+            type: integer
+          system_updated_at:
+            type: integer
+          booted_at:
+            type: integer
+          utc_offset:
+            type: integer
+          processor_name:
+            type: string
+          processor_speed:
+            type: integer
+          processor_cores_physical:
+            type: integer
+          processor_cores_logical:
+            type: integer
+          network_name:
+            type: string
+          network_speed:
+            type: integer
+          memory_total:
+            type: integer
+          cpu_requests_total:
+            type: integer
+          memory_requests_total:
+            type: integer
+          cpu_limits_total:
+            type: integer
+          memory_limits_total:
+            type: integer
+          is_server_image: 
+            type: boolean
+          is_server_geoevent: 
+            type: boolean
+          is_server_geoanalytics: 
+            type: boolean
+          is_server_notebook: 
+            type: boolean
+          is_service_mapping: 
+            type: boolean
+          is_service_image: 
+            type: boolean
+          is_service_feature: 
+            type: boolean
+          is_service_cached: 
+            type: boolean
+          in_instances: 
+            type: integer
+          max_instances: 
+            type: integer
+          max_wait_time: 
+            type: integer
+          max_idle_time: 
+            type: integer
+          total_licenses: 
+            type: integer
+          expires_at: 
+            type: integer
+          last_activity: 
+            type: integer
+          max_notebook_containers_node: 
+            type: integer
+          idle_notebook_threshold: 
+            type: integer
+      Contact:
+        type: object
+        properties: {}
+      Database:
+        type: object
+        properties:
+          isRegistered:
+            type: boolean
+          isConnected:
+            type: boolean
+          client:
+            type: string
+            enum: [pg, mssql]
+          connection:
+            $ref: '#/components/schemas/DatabaseConnection'
+          partitionRetention:
+            $ref: '#/components/schemas/DatabasePartitionRetention'
+      DatabaseConnection:
+        type: object
+        properties:
+          host:
+            type: string
+          port:
+            type: integer
+          user:
+            type: string
+          database:
+            type: string
+      DatabasePermissions:
+        type: object
+        properties: {}
+      DatabaseMigration:
+        type: object
+        properties:
+          name:
+            type: string
+          migrated:
+            type: boolean
+          batch:
+            type: integer
+      DatabasePartitionRetention:
+        type: object
+        properties:
+          metric_data:
+            type: integer
+          metrics_data_statistics:
+            type: integer
+          enterprise_logs:
+            type: integer
+          raw_logs:
+            type: integer
+      Defaults:
+        type: object
+        properties: {}
+      Event:
+        type: object
+        properties:
+          id: 
+            type: integer
+          created_at: 
+            type: integer
+          updated_at: 
+            type: integer
+          notification_id: 
+            type: integer
+          resource: 
+            type: string
+          operation: 
+            type: string
+          condition: 
+            type: object
+            properties: {}
+      Favorite:
+        type: object
+        properties:
+          id:
+            type: integer
+          favorite_type:
+            type: string
+          favorite_id:
+            type: integer
+      Features:
+        type: array
+        items:
+          type: object
+          properties: {}
+      Fields:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+            sqlType:
+              type: string
+            contains:
+              type: string
+            alias:
+              type: string
+            description:
+              type: string
+            domain:
+              type: string
+            editable:
+              type: boolean
+            nullable:
+              type: boolean
+            changeable:
+              type: boolean
+            computed:
+              type: boolean
+            visible:
+              type: boolean
+            operators:
+              type: array
+              items:
+                type: string
+      Ids:
+        type: array
+        items:
+          type: integer
+      Incident:
+        type: object
+        properties:
+          name: 
+            type: string
+          description: 
+            type: string
+          start_at: 
+            type: integer
+          end_at: 
+            type: integer
+          is_monitoring_enabled: 
+            type: boolean
+          is_alerting_enabled: 
+            type: boolean
+          reminder_hours: 
+            type: integer
+          reminder_sent: 
+            type: boolean
+          state: 
+            type: string
+          created_at: 
+            type: integer
+          updated_at: 
+            type: integer
+          id: 
+            type: integer
+      License:
+        type: object
+        properties:
+          name:
+            type: string
+          displayName:
+            type: string
+          coreCount:
+            type: integer
+          version:
+            type: string
+          canExpire:
+            type: boolean
+          expiration:
+            type: integer
+      Licensing:
+        type: object
+        properties:
+          isLicensed:
+            type: boolean
+          licenses:
+            type: array
+            items:
+              $ref: '#/components/schemas/License'
+      Metric:
+        type: object
+        properties:
+          id: 
+            type: integer
+          created_at: 
+            type: integer
+          updated_at: 
+            type: integer
+          component_id: 
+            type: integer
+          observer_id: 
+            type: integer
+          task_id: 
+            type: integer
+          identifier: 
+            type: string
+          name: 
+            type: string
+          description: 
+            type: string
+          type: 
+            type: string
+          subtype: 
+            type: string
+          status: 
+            type: integer
+          unit: 
+            type: string
+          is_alerting_enabled: 
+            type: boolean
+          is_influencing_uptime: 
+            type: boolean
+          operator: 
+            type: string
+          info_threshold: 
+            type: integer
+          warning_threshold: 
+            type: integer
+          critical_threshold: 
+            type: integer
+          back_intervals: 
+            type: integer
+          violation_percent: 
+            type: integer
+          back_intervals_values: 
+            type: array
+            items:
+              type: number
+      MetricData:
+        type: object
+        properties:
+          observed_at:
+            type: integer
+          metric_id:
+            type: integer
+          value:
+            type:  number
+      Notification:
+        type: object
+        properties:
+          id: 
+            type: integer
+          created_at: 
+            type: integer
+          updated_at: 
+            type: integer
+          is_webhooks_enabled: 
+            type: boolean
+          is_email_enabled: 
+            type: boolean
+          name: 
+            type: string
+          description: 
+            type: string
+          url: 
+            type: string
+          collection_id: 
+            type: integer
+          user_id: 
+            type: integer
+          email_interval: 
+            type: integer
+      Observer:
+        type: object
+        properties:
+          id: 
+            type: integer
+          created_at: 
+            type: integer
+          updated_at: 
+            type: integer
+          component_id: 
+            type: integer
+          task_id: 
+            type: integer
+          agent_id: 
+            type: integer
+          name: 
+            type: string
+          description: 
+            type: string
+          identifier: 
+            type: string
+          is_enabled: 
+            type: boolean
+          state: 
+            type: string
+          status: 
+            type: integer
+          started_at: 
+            type: integer
+          config: 
+            type: object
+            properties:
+              version: 
+                type: string
+              interval_default: 
+                type: integer
+              intervals_allowed: 
+                type: array
+                items:
+                  type: integer
+              metrics: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Metric'
+          params:
+            type: object
+            properties: {}
+      Operations:
+        type: array
+        items:
+          type: string
+      PasswordPolicy:
+        type: object
+        properties:
+          minlength:
+            type: integer
+            minimum: 7
+            maximum: 60
+          minletter:
+            type: boolean
+          minlower:
+            type: boolean
+          minupper:
+            type: boolean
+          mindigit:
+            type: boolean
+          minother:
+            type: boolean
+      Question:
+        type: object
+        properties:
+          id:
+            type: integer
+          question:
+            type: string
+      Recipient:
+        type: object
+        properties:
+          id:
+            type: integer
+          resource:
+            type: string
+          name:
+            type: string
+          email:
+            type: string
+      Relationships:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            fields:
+              $ref: '#/components/schemas/Fields' 
+      Report:
+        type: object
+        properties:
+          id:
+            type: integer
+          collection_id:
+            type: integer
+          registry_id:
+            type: integer
+          occurrence:
+            $ref: '#/components/schemas/ReportOccurence'
+          config:
+            $ref: '#/components/schemas/ReportConfig'
+      ReportConfig:
+        type: object
+        properties:
+          h:
+            type: integer
+          D:
+            type: integer
+          dw:
+            type: integer
+      ReportOccurence:
+        type: object
+        properties:
+          start_time:
+            type: integer
+          end_time:
+            type: integer
+          relative:
+            type: string
+          modules:
+            type: string
+      ReportRegistry:
+        type: object
+        properties:
+          id:
+            type: integer
+          identifier:
+            type: string
+          query:
+            type: object
+            properties: {}
+      ReportRun:
+        type: object
+        properties:
+          id:
+            type: integer
+          created_at:
+            type: integer
+          updated_at:
+            type: integer
+          state:
+            type: string
+          started_at:
+            type: integer
+          ended_at:
+            type: integer
+          report_id:
+            type: integer
+          config_query:
+            type: object
+            properties: {}
+          err_message:
+            type: string
+      Resources:
+        type: array
+        items:
+          type: string
+      Smtp:
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+          connection:
+            $ref: '#/components/schemas/SmtpConnection'
+          sender:
+            $ref: '#/components/schemas/SmtpSender'
+      SmtpConnection:
+        type: object
+        properties:
+          driver:
+            type: string
+          host:
+            type: string
+          port:
+            type: integer
+          secure:
+            type: boolean
+          username:
+            type: string
+      SmtpSender:
+        type: object
+        properties:
+          address:
+            type: string
+          name:
+            type: string
+      Ssl:
+        type: object
+        properties: {}
+      System:
+        type: object
+        properties: {}
+      Tag:
+        type: object
+        properties:
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+              created_at:
+                type: integer
+              updated_at:
+                type: integer
+              id:
+                type: integer
+              is_managed:
+                type: boolean
+      Type:
+        type: object
+        properties: {}
+      Types:
+        type: array
+        items:
+          $ref: '#/components/schemas/Type'
+      User:
+        type: object
+        properties:
+          id: 
+            type: integer
+          created_at:
+            type: integer
+          updated_at:
+            type: integer
+          username:
+            type: string
+          name_first:
+            type: string
+          name_last:
+            type: string
+          role:
+            type: string
+          email:
+            type: string
+          signedin_at:
+            type: integer
+          account_status:
+            type: string
+          account_state:
+            type: integer
+          settings:
+            type: object
+            properties: {}
+          name:
+            type: string
+        
+    responses: {}
+    parameters: {}
+    examples: {}
+    requestBodies:
+      IdList:
+        description: Delete list of entities by id
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids: 
+                  $ref: '#/components/schemas/Ids'
+    headers: {}
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+    links: {}
+    callbacks: {}
+  tags:
+    - name: Admin
+    - name: Agent
+    - name: Auth
+    - name: Monitoring
+    - name: Setup
+  servers:
+    - url: '{protocol}://{host}:{port}/arcgis'
+  security:
+    - bearerAuth: []
+contentType: yaml

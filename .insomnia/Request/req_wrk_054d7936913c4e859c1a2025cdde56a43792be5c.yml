@@ -1,0 +1,46 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a43792be5c
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894192
+created: 1626795894192
+url: "{{ base_url }}/monitoring/notifications/query"
+name: /monitoring/notifications/query
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "where": "string",
+      "with": [
+        {
+          "related": "string",
+          "where": "string"
+        }
+      ],
+      "has": [
+        {
+          "related": "string",
+          "where": "string"
+        }
+      ],
+      "resultrecordcount": 0,
+      "returndistinctvalues": true,
+      "resultoffset": 0
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894192
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

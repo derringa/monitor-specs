@@ -1,0 +1,24 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4b5968ee5
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795893776
+created: 1626795893776
+url: "{{ base_url }}/monitoring/reports/runs"
+name: /monitoring/reports/runs
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795893777
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

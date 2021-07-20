@@ -1,0 +1,16 @@
+_id: env_env_360d02be014968335155bfdda1c49b8ff94d31f2_sub
+type: Environment
+parentId: env_360d02be014968335155bfdda1c49b8ff94d31f2
+modified: 1626795896157
+created: 1626795896157
+name: OpenAPI env
+data:
+  scheme:
+    - http
+  base_path: "%7Bprotocol%7D://%7Bhost%7D:%7Bport%7D/arcgis"
+  host: ""
+  bearerToken: bearerToken
+dataPropertyOrder: null
+color: null
+isPrivate: false
+metaSortKey: 1626795896157

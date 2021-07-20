@@ -1,0 +1,34 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4478c6db0
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4cdd7bb28
+modified: 1626795893607
+created: 1626795893607
+url: "{{ base_url }}/setup/createagent"
+name: /setup/createagent
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "server_url": "string",
+      "server_token": "string",
+      "name": "string",
+      "description": "string"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795893607
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

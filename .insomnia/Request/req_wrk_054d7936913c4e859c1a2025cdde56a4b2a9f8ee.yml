@@ -1,0 +1,37 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4b2a9f8ee
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a44e7afebc
+modified: 1626795895580
+created: 1626795895580
+url: "{{ base_url }}/admin/database/register"
+name: /admin/database/register
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "client": "string",
+      "host": "string",
+      "port": "string",
+      "database": "string",
+      "domain": "string",
+      "username": "string",
+      "password": "string"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895580
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

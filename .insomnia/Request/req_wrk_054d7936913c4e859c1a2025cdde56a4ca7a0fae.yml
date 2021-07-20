@@ -1,0 +1,33 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4ca7a0fae
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a44e7afebc
+modified: 1626795895261
+created: 1626795895261
+url: "{{ base_url }}/admin/tags/delete"
+name: /admin/tags/delete
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "ids": [
+        0
+      ]
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895261
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

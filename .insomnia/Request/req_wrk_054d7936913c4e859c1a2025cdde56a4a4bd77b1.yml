@@ -1,0 +1,24 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4a4bd77b1
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a435d0f5fb
+modified: 1626795895225
+created: 1626795895225
+url: "{{ base_url }}/auth"
+name: /auth
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895225
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

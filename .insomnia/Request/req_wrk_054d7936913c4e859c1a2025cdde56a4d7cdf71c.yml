@@ -1,0 +1,36 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4d7cdf71c
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a435d0f5fb
+modified: 1626795895098
+created: 1626795895098
+url: "{{ base_url }}/auth/self/updateProfile"
+name: /auth/self/updateProfile
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "email": "string",
+      "name_first": "string",
+      "name_last": "string",
+      "security_question_id": 0,
+      "security_question_answer": "string",
+      "password": "string"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895098
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

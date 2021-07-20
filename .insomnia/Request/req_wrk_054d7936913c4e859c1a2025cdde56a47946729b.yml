@@ -1,0 +1,24 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a47946729b
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a44e7afebc
+modified: 1626795895349
+created: 1626795895349
+url: "{{ base_url }}/admin/system/smtp/enable"
+name: /admin/system/smtp/enable
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895349
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

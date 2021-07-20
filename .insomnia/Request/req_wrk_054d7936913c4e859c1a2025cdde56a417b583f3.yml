@@ -1,0 +1,34 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a417b583f3
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a44e7afebc
+modified: 1626795895519
+created: 1626795895519
+url: "{{ base_url }}/admin/database/update"
+name: /admin/database/update
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "partitionretention": {
+        "metric_date": 0,
+        "metrics_data_statistics": 0
+      }
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895519
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

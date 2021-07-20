@@ -1,0 +1,24 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4943548e0
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894629
+created: 1626795894629
+url: "{{ base_url }}/monitoring/components/collections"
+name: /monitoring/components/collections
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894629
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

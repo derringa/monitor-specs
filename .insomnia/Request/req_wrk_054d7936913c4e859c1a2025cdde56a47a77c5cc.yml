@@ -1,0 +1,33 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a47a77c5cc
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894375
+created: 1626795894375
+url: "{{ base_url }}/monitoring/incidents/comments/delete"
+name: /monitoring/incidents/comments/delete
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "ids": [
+        0
+      ]
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894375
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,32 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4b330b809
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a435d0f5fb
+modified: 1626795895192
+created: 1626795895192
+url: "{{ base_url }}/auth/forgotPassword"
+name: /auth/forgotPassword
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "username": "string",
+      "security_question_answer": "string"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895192
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

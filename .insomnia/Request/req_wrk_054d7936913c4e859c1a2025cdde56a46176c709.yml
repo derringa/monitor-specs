@@ -1,0 +1,32 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a46176c709
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795893847
+created: 1626795893847
+url: "{{ base_url }}/monitoring/reports/registry/add"
+name: /monitoring/reports/registry/add
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "query": {},
+      "identified": "string"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795893847
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

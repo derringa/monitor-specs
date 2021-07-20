@@ -1,0 +1,38 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a489b0d183
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894468
+created: 1626795894468
+url: "{{ base_url }}/monitoring/incidents/update"
+name: /monitoring/incidents/update
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": 0,
+      "start_at": "string",
+      "end_at": 0,
+      "name": "string",
+      "description": "string",
+      "is_monitoring_enabled": true,
+      "is_alerting_enabled": true,
+      "reminder_hours": 0
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894468
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

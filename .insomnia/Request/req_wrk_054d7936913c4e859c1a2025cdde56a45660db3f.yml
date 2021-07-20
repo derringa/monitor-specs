@@ -1,0 +1,31 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a45660db3f
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a435d0f5fb
+modified: 1626795895207
+created: 1626795895207
+url: "{{ base_url }}/auth/checkPasswordStrength"
+name: /auth/checkPasswordStrength
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "password": "string"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895207
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

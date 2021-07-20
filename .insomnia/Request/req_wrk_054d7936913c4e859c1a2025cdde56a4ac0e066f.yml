@@ -1,0 +1,37 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4ac0e066f
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894202
+created: 1626795894202
+url: "{{ base_url }}/monitoring/notifications/update"
+name: /monitoring/notifications/update
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": 0,
+      "name": "string",
+      "description": "string",
+      "is_webhooks_enabled": true,
+      "is_email_enabled": true,
+      "url": "string",
+      "email_interval": 0
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894202
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

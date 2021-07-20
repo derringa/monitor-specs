@@ -1,0 +1,34 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a44a04861e
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894737
+created: 1626795894737
+url: "{{ base_url }}/monitoring/collections/incidents/detach"
+name: /monitoring/collections/incidents/detach
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": 0,
+      "incident_ids": [
+        0
+      ]
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894737
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

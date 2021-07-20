@@ -1,0 +1,24 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4f5d3d84f
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a45ce2e6f4
+modified: 1626795895229
+created: 1626795895229
+url: "{{ base_url }}/agent/identify"
+name: /agent/identify
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895229
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

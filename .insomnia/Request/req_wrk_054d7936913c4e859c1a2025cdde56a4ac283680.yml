@@ -1,0 +1,35 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4ac283680
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a435d0f5fb
+modified: 1626795895162
+created: 1626795895162
+url: "{{ base_url }}/auth/token"
+name: /auth/token
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "username": "string",
+      "password": "string",
+      "refresh_token": "string",
+      "issue_refresh_token": true,
+      "exchange_refresh_token": true
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895162
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,32 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4e878561e
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a44e7afebc
+modified: 1626795895246
+created: 1626795895246
+url: "{{ base_url }}/admin/tags/update"
+name: /admin/tags/update
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": 0,
+      "name": "string"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895246
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

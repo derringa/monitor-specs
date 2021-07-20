@@ -1,0 +1,34 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a464eb8bad
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a44e7afebc
+modified: 1626795895452
+created: 1626795895452
+url: "{{ base_url }}/admin/system/update"
+name: /admin/system/update
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "webcontexturl": "string",
+      "clustersize": 0,
+      "connectiontimeout": 0,
+      "maxrecordcount": 0
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895452
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

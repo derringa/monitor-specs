@@ -1,0 +1,46 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4773ecb7d
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a44e7afebc
+modified: 1626795895631
+created: 1626795895631
+url: "{{ base_url }}/admin/security/users/query"
+name: /admin/security/users/query
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "where": "string",
+      "with": [
+        {
+          "related": "string",
+          "where": "string"
+        }
+      ],
+      "has": [
+        {
+          "related": "string",
+          "where": "string"
+        }
+      ],
+      "resultrecordcount": 0,
+      "returndistinctvalues": true,
+      "resultoffset": 0
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795895631
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

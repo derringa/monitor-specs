@@ -1,0 +1,43 @@
+_id: req_wrk_054d7936913c4e859c1a2025cdde56a4e36109d1
+type: Request
+parentId: fld_wrk_054d7936913c4e859c1a2025cdde56a4a8143458
+modified: 1626795894664
+created: 1626795894664
+url: "{{ base_url }}/monitoring/components/register"
+name: /monitoring/components/register
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": 0,
+      "agent_id": 0,
+      "name": "string",
+      "type": "string",
+      "subtype": "string",
+      "address_internal": "string",
+      "description": "string",
+      "auth": {
+        "username": "string",
+        "password": "string",
+        "port": 0,
+        "key": "string"
+      }
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1626795894664
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
